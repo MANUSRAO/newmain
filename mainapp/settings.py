@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-xzygc(2@dqlz=iv$s7a$q%!19a8%%)6)7udw0lcniac#n(#p!v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.17.10.180','localhost','172.17.8.228','railway.app','*']
+ALLOWED_HOSTS = ['172.17.10.180','localhost','172.17.8.228','https://newmain-production.up.railway.app','*']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'manusrao.is20@rvce.edu.in'
@@ -135,3 +135,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CSRF_TRUSTED_ORIGINS = [
+    'https://newmain-production.up.railway.app'
+]
