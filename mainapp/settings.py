@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-xzygc(2@dqlz=iv$s7a$q%!19a8%%)6)7udw0lcniac#n(#p!v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.17.10.180','localhost','172.17.8.228']
+ALLOWED_HOSTS = ['172.17.10.180','localhost','172.17.8.228','railway.app','*']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'manusrao.is20@rvce.edu.in'
