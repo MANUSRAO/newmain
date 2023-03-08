@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Upload File</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'upload' %}">Upload Data</a></li>
+          </ol>
+        </nav>
+      </div>
+      {% for msg in messages %}
+      {% if msg.tags == 'success' %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-1"></i>
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% else %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-octagon me-1"></i>
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+    {% endfor %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}        
+        <div class="row mb-3">
+            <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="file" id="formFile" name="myfile">
+            </div>
+        </div>
+        <input type="submit" value="Upload" class="btn btn-primary"/>
+    </form>
+    <br>
+    
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12" >
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">USN</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Branch</th>
+                                <th scope="col">Room</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for i,r in data.iterrows %}    
+                              <tr>
+                                <!-- <th scope="row">{{hol.id}}</th> -->
+                                <td><a href= "{% url 'updateStudent' r.usn %}">{{r.name}}</a></td>
+                                <td>{{r.usn}}</td>
+                                <td>{{r.year}}</td>
+                                <td>{{r.branch}}</td>
+                                <td>{{r.room}}</td>
+                                <td>{{r.email}}</td>
+                                <td><a href= "{% url 'deleteStudent' r.usn %}">Delete</a></td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

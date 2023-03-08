@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Updating Student</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'findStudent' %}">Student List</a></li>
+            <li class="breadcrumb-item active">Student</li>
+          </ol>
+        </nav>
+      </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="submit"/>
+    </form>
+</main>
+{% endblock %}

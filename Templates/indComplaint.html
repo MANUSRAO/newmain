@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Complaint {{complaint.id}}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'readComplaint' %}">Complaint List</a></li>
+          <li class="breadcrumb-item active">Complaint {{complaint.id}}</li>
+        </ol>
+      </nav>
+    </div>
+    </div>
+    <section class="section ">
+        <div class="row align-items-top">
+            <div class="col-lg-12" >
+                <div class="card">
+                    <div class="card-header">Complaint #{{complaint.id}}</div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{complaint.complaint_heading}}</h5>
+                      {{complaint.complaint}}
+                    </div>
+                    <div class="card-footer">
+                        {{complaint.date}}
+                    </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endif %}
+{% endblock %}

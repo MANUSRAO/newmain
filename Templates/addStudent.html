@@ -1,0 +1,118 @@
+{% extends 'base.html' %} 
+{% block content %}
+{% if user.is_authenticated %}
+<main id="main" class="main">
+  <section class="section">
+    {% for msg in messages %}
+    {% if msg.tags == 'success' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="bi bi-check-circle me-1"></i>
+      {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% else %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-octagon me-1"></i>
+      {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+  {% endfor %}
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+
+          <div class="card-body">
+            <h5 class="card-title">Add Student Form</h5>
+            <form class="row g-3" method="POST">
+              {% csrf_token %}
+              <div class="col-md-12">
+                <label for="inputName5" class="form-label">Student Name</label>
+                <input type="text" class="form-control" id="inputName5" name="name"/>
+              </div>
+              <div class="col-md-6">
+                <label for="inputEmail5" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail5" name="email"/>
+              </div>
+              <div class="col-md-6">
+                <label for="inputPassword5" class="form-label"
+                  >Phone Number</label
+                >
+                <input type="text" class="form-control" id="inputPassword5" name="mobile"/>
+              </div>
+              <div class="col-md-6">
+                <label for="inputPassword5" class="form-label">USN</label>
+                <input type="text" class="form-control" id="inputPassword5" name="usn"/>
+              </div>
+              <div class="col-md-4">
+                <label for="inputPassword5" class="form-label">Branch</label>
+                <input type="text" class="form-control" id="inputPassword5" name="branch"/>
+              </div>
+              <div class="col-md-2">
+                <label for="inputPassword5" class="form-label">Year</label>
+                <input type="text" class="form-control" id="inputPassword5" name="year"/>
+              </div>
+              <div class="col-12">
+                <label for="inputAddress5" class="form-label">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddres5s"
+                  placeholder="Permanent Address"
+                  name="pAdd"
+                />
+              </div>
+              <div class="col-8">
+                <label for="inputAddress2" class="form-label">Image Link</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress2"
+                  placeholder="Hosted Image Link" 
+                  name="img"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="inputAddress2" class="form-label"
+                  >Room Number</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress2"
+                  name="room"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="inputName5" class="form-label">Blood Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress2"
+                  placeholder="blood group"
+                  name="blood"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="inputName5" class="form-label">Gender</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress2"
+                  placeholder="gender"
+                  name="gender"
+                />
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+            <!-- End Multi Columns Form -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endif %}
+{% endblock %}

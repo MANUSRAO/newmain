@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Holiday List</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+          <li class="breadcrumb-item active">Holiday</li>
+        </ol>
+      </nav>
+      <div class="header" style="padding-top: 0.5rem;">
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+              {% csrf_token %}
+              <input type="text" name="q" placeholder="Search by USN, Date" title="Enter search keyword">
+              <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+    </div>
+    <!-- End Search Bar -->
+    </div><!-- End Page Title -->
+
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12" >
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">USN</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Number of Days</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for hol in holidays %}    
+                              <tr>
+                                <th scope="row">{{hol.id}}</th>
+                                <td>{{hol.usn}}</td>
+                                <td>{{hol.startDate}}</td>
+                                <td>{{hol.endDate}}</td>
+                                <td>{{hol.numberOfDays}}</td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endif %}
+{% endblock %}

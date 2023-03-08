@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Student List</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+          <li class="breadcrumb-item active">Student List</li>
+        </ol>
+      </nav>
+      <div class="header" style="padding-top: 0.5rem;">
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                {% csrf_token %}
+              <input type="text" name="q" placeholder="Search by USN, Name" title="Enter search keyword">
+              <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+    </div>
+    <!-- End Search Bar -->
+    </div><!-- End Page Title -->
+
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12" >
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">USN</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Branch</th>
+                                <th scope="col">Room</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Update</th>
+                                <th scope="col">Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for student in students %}    
+                              <tr>
+                                <!-- <th scope="row">{{hol.id}}</th> -->
+                                <td><a href= "{% url 'studentProfile' student.email %}">{{student.name}}</a></td>
+                                <td>{{student.usn}}</td>
+                                <td>{{student.year}}</td>
+                                <td>{{student.branch}}</td>
+                                <td>{{student.room}}</td>
+                                <td>{{student.email}}</td>
+                                <td><a href="{% url 'updateStudent' student.usn %}"><i class="bi bi-pen"></i></a></td></i>
+                                <td><a href= "{% url 'deleteStudent' student.usn %}">Delete</a></td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endif %}
+{% endblock %}

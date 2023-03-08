@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+  <section class="section">
+    {% for msg in messages %}
+    {% if msg.tags == 'success' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="bi bi-check-circle me-1"></i>
+      {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% else %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-octagon me-1"></i>
+      {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+  {% endfor %}
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <div class="pagetitle">
+            <h5 class="card-title">Add Review Form</h5>
+          </div>
+          <form action="" method="POST" class="row g3" id="complaintForm">
+            {% csrf_token %}
+            
+            <br>
+            <div class="col-md-4">
+                <label for="inputPassword5" class="form-label">Morning Food Review</label>
+                <input type="text" class="form-control" id="inputPassword5" name="morn" placeholder="Value between 1 and 100"/>
+              </div>
+              <div class="col-md-4">
+                <label for="inputPassword5" class="form-label">Afternoon Food Review</label>
+                <input type="text" class="form-control" id="inputPassword5" name="aft" placeholder="Value between 1 and 100"/>
+              </div>
+              <div class="col-md-4">
+                <label for="inputPassword5" class="form-label">Night Food Review</label>
+                <input type="text" class="form-control" id="inputPassword5" name="night" placeholder="Value between 1 and 100"/>
+              </div>
+              <div class="col-md-12">
+                <label for="inputName5" class="form-label" style="margin-top: 1rem;">Food Review</label>
+                <textarea type="text" name="review" placeholder="Write your Review"  class="form-control" style="margin-bottom: 1.2rem;"></textarea>
+              </div>
+            <div class="col-md-12">
+              <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
+

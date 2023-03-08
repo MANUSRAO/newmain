@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<main  id="main" class="main">
+<form method="POST" action="">
+    <div class="pagetitle">
+        <h1>Deleting Student</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'findStudent' %}">Student List</a></li>
+            <li class="breadcrumb-item active">Student</li>
+          </ol>
+        </nav>
+      </div>
+    {% csrf_token %}
+    <p> Are you sure you want to delete "{{obj}}"</p>
+
+    <a href = "{{request.META.HTTP_REFERER}}">Go Back</a>
+    <input type="submit" value = "Confirm" class="btn btn-primary"/>
+
+</form>
+</main>
+{% endblock content%}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Complaint List</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+          <li class="breadcrumb-item active">Complaint List</li>
+        </ol>
+      </nav>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-md-8" >
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Complaint</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for complaint in complaints %}    
+                              <tr>
+                                <td><a href= "{% url 'indComplaint' complaint.id %}" scope="col">{{complaint.id}}</a></td>
+                                <td>{{complaint.complaint_heading}}</td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    
+
+
+    
+{% endif %}
+{% endblock %}
+

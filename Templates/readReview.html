@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Reviews List</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+          <li class="breadcrumb-item active">Reviews List</li>
+        </ol>
+      </nav>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-md-8" >
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Review</th>
+                                <th scope="col">Morning Score</th>
+                                <th scope="col">Afternoon Score</th>
+                                <th scope="col">Night Score</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for r in reviews %}    
+                              <tr>
+                                <td><a scope="col">{{r.id}}</a></td>
+                                <td>{{r.review}}</td>
+                                <td>{{r.morn}}</td>
+                                <td>{{r.aft}}</td>
+                                <td>{{r.night}}</td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    
+
+
+    
+{% endif %}
+{% endblock %}
+

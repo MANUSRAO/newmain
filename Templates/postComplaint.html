@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block content %} 
+<main id="main" class="main">
+  <section class="section">
+    {% for msg in messages %}
+    {% if msg.tags == 'success' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="bi bi-check-circle me-1"></i>
+      {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% else %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-octagon me-1"></i>
+      {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+  {% endfor %}
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <div class="pagetitle">
+            <h5 class="card-title">Add Complaint Form</h5>
+          </div>
+          <form action="" method="POST" class="row g3" id="complaintForm">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <label for="inputName5" class="form-label">Heading</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputName5"
+                name="complaint_heading"
+                placeholder="Heading"
+              />
+            </div>
+            <div class="col-md-12">
+              <label
+                for="inputEmail5"
+                class="form-label"
+                style="margin-top: 2rem; margin-bottom: 1.2rem"
+                >Complaint</label
+              >
+              <textarea
+                type="text"
+                name="complaint"
+                class="form-control"
+                id="inputEmail5"
+                style="margin-bottom: 1.2rem"
+                placeholder="Enter your complaint"
+              ></textarea>
+            </div>
+            <div class="col-md-2">
+              <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+ {% endblock %}

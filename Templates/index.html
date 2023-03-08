@@ -1,0 +1,348 @@
+{% extends 'base.html'%}
+{% load static %}
+  {% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'Home' %}">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <!-- Sales Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Food Review</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-star-fill"></i>
+                    </div>
+
+                    <div class="ps-3">
+                      <h6>{{reviewCount}}</h6>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Revenue Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#" id="today_comp_filter">Today</a></li>
+                    <li><a class="dropdown-item" href="#" id="week_comp_filter">This Week</a></li>
+                    <li><a class="dropdown-item" href="#" id="month_comp_filter">This Month</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Complaints</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-x-square-fill"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="comp_count">{{today_complaint}}</h6>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Revenue Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-4 col-xl-12">
+
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Students</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{studentCount}}</h6>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- End Customers Card -->
+
+            <!-- Reports -->
+            <div class="col-12">
+              <div class="card">
+
+
+                <div class="card-body">
+                  <h5 class="card-title">Food Review</h5>
+
+                  <!-- Line Chart -->
+                  <div id="reportsChart"></div>
+
+                  <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#reportsChart"), {
+                        series: [{
+                          name: 'Breakfast',
+                          data: ["{{morn_0}}","{{morn_1}}", "{{morn_2}}", "{{morn_3}}", "{{morn_4}}", "{{morn_5}}", "{{morn_6}}"],
+                        },
+                        {
+                          name: 'Meals',
+                          data: ["{{aft_0}}","{{aft_1}}", "{{aft_2}}", "{{aft_3}}", "{{aft_4}}", "{{aft_5}}", "{{aft_6}}"],
+                        },
+                        {
+                          name: 'Dinner',
+                          data: ["{{night_0}}","{{night_1}}", "{{night_2}}", "{{night_3}}", "{{night_4}}", "{{night_5}}", "{{night_6}}"],
+                        }],
+                        chart: {
+                          height: 350,
+                          type: 'area',
+                          toolbar: {
+                            show: false
+                          },
+                        },
+                        markers: {
+                          size: 4
+                        },
+                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100]
+                          }
+                        },
+                        dataLabels: {
+                          enabled: false
+                        },
+                        stroke: {
+                          curve: 'smooth',
+                          width: 2
+                        },
+                        xaxis: {
+                          type: 'category',
+                          categories: ["{{dates_0}}","{{dates_1}}", "{{dates_2}}", "{{dates_3}}", "{{dates_4}}", "{{dates_5}}", "{{dates_6}}"],
+                        },
+                        tooltip: {
+                          x: {
+                            format: 'dd/MM/yy'
+                          },
+                        }
+                      }).render();
+                    });
+                  </script>
+                  <!-- End Line Chart -->
+
+                </div>
+
+              </div>
+            </div><!-- End Reports -->
+
+            <!-- Recent Sales -->
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+                <div class="card-body">
+                  <h5 class="card-title">Recent Compliants</h5>
+
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col">#ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Compliant</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for comp in complaint_list %}
+                        <tr>
+                          <th scope="row"><a href="{% url 'indComplaint' comp.id %}">#{{comp.id}}</a></th>
+                          <td>{{comp.date}}</td>
+                          <td><a href="{% url 'indComplaint' comp.id %}" class="text-primary">{{comp.complaint_heading}}</a></td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+
+
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+                             <!-- Budget Report -->
+          <div class="card">
+            <div class="card-body pb-0">
+              <h5 class="card-title">Student Ratio</h5>
+
+              <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                    tooltip: {
+                      trigger: 'axis',
+                      axisPointer: {
+                        type: 'shadow'
+                      }
+                    },
+                    legend: {},
+                    grid: {
+                      left: '3%',
+                      right: '4%',
+                      bottom: '3%',
+                      containLabel: true
+                    },
+                    xAxis: {
+                      type: 'value',
+                      boundaryGap: [0, 0.01]
+                    },
+                    yAxis: {
+                      type: 'category',
+                      data: ['1st Year', '2nd Year', '3rd Year', '4th Year', 'PG Year'].reverse()
+                    },
+                    series: [
+                      {
+                        name: 'Boys',
+                        type: 'bar',
+                        data: ["{{first_boys}}","{{second_boys}}","{{third_boys}}","{{fourth_boys}}","{{pg_boys}}"].reverse()
+                      },
+                      {
+                        name: 'Girls',
+                        type: 'bar',
+                        data: ["{{first_girls}}","{{second_girls}}","{{third_girls}}","{{fourth_girls}}","{{pg_girls}}"].reverse()
+                      }
+                    ]
+                  });
+                });
+              </script>
+
+            </div>
+          </div><!-- End Budget Report -->
+
+
+
+
+          <!-- Website Traffic -->
+          <div class="card">
+
+
+            <div class="card-body pb-0">
+              <h5 class="card-title">Student Strength</h5>
+
+              <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  echarts.init(document.querySelector("#trafficChart")).setOption({
+                    tooltip: {
+                      trigger: 'item'
+                    },
+                    legend: {
+                      top: '5%',
+                      left: 'center'
+                    },
+                    series: [{
+                      name: 'Strength in',
+                      type: 'pie',
+                      radius: ['40%', '70%'],
+                      avoidLabelOverlap: false,
+                      label: {
+                        show: false,
+                        position: 'center'
+                      },
+                      emphasis: {
+                        label: {
+                          show: true,
+                          fontSize: '18',
+                          fontWeight: 'bold'
+                        }
+                      },
+                      labelLine: {
+                        show: false
+                      },
+                      data: [{
+                          value: "{{first_students}}",
+                          name: 'First Year'
+                        },
+                        {
+                          value: "{{second_students}}",
+                          name: 'Second Year'
+                        },
+                        {
+                          value: "{{third_students}}",
+                          name: 'Third Year'
+                        },
+                        {
+                          value: "{{fourth_students}}",
+                          name: 'Fourth Year'
+                        },
+                        {
+                          value: "{{pg_students}}",
+                          name: 'PG Year'
+                        }
+                      ]
+                    }]
+                  });
+                });
+              </script>
+
+            </div>
+          </div><!-- End Website Traffic -->
+
+
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <script>
+    document.getElementById('today_comp_filter').addEventListener('click',()=>{
+      document.getElementById('comp_count').innerHTML = "{{today_complaint}}"
+    })
+    document.getElementById('week_comp_filter').addEventListener('click',()=>{
+      document.getElementById('comp_count').innerHTML = "{{week_complaint}}"
+    })
+    document.getElementById('month_comp_filter').addEventListener('click',()=>{
+      document.getElementById('comp_count').innerHTML = "{{month_complaint}}"
+    })
+  </script>
+  {% endblock %}
