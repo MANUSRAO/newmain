@@ -12,6 +12,7 @@ In this view, the user is provided with a admin dashboard with all relevant data
 * Upload Excel Data
 * Send Mail
 * Generate Reports
+* Add Staff
 
 ### 2. Student View:
 In this view, the user can provide food review and file anonymous complaints.
